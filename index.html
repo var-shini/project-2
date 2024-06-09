@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Online Code Editor</title>
+  <script src="https://kit.fontawesome.com/1859b051cd.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="left">
+      <label for="html-code"><i class="fa-brands fa-html5"></i> HTML</label>
+      <textarea id="html-code" onkeyup="run()"></textarea>
+
+      <label for="css-code"><i class="fa-brands fa-css3-alt"></i> CSS</label>
+      <textarea id="css-code" onkeyup="run()"></textarea>
+
+      <label for="js-code"><i class="fa-brands fa-js"></i> JavaScript</label>
+      <textarea id="js-code" onkeyup="run()"></textarea>
+
+      <button onclick="run()">Run Code</button>
+    </div>
+    <div class="right">
+      <label for="output"><i class="fa-solid fa-play"></i> Output</label>
+      <iframe id="output"></iframe>
+      <pre id="backend-output"></pre>
+    </div>
+  </div>
+
+  <script>
+    function run() {
+      // Get code from textareas
+      let htmlCode = document.getElementById("html-code").value;
+      let cssCode = document.getElementById("css-code").value;
+      let jsCode = document.getElementById("js-code").value;
+
+      // Get the iframe element
+      let output = document.getElementById("output");
+      const doc = output.contentDocument; // Get the iframe document
+
+      // Clear previous content
+      doc.open();
+      doc.close();
+
+      // Set the HTML content
+      doc.body.innerHTML = htmlCode;
+
+      // Create and append style element for CSS
+      const style = doc.createElement("style");
+      style.textContent = cssCode;
+      doc.head.appendChild(style);
+
+      // Create and append script element for JavaScript
+      const script = doc.createElement("script");
+      script.textContent = jsCode;
+      doc.body.appendChild(script);
+    }
+  </script>
+</body>
+</html>
